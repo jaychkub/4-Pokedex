@@ -1,0 +1,7 @@
+.Pokegrid-main {
+	width: 100%;
+	height: 60%;
+	background-color: lightblue;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+}
