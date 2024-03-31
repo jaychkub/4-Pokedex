@@ -1,7 +1,67 @@
-.Pokegrid-main {
+.PokeGrid-grid {
 	width: 100%;
-	height: 60%;
-	background-color: lightblue;
+	max-width: 425px;
+	height: 50%;
+	max-height: 50%;
+	// background-color: lightblue;
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
+	gap: 10px;
+	z-index: 2;
+	overflow-y: scroll;
+	box-sizing: border-box;
+	padding: 10px;
+	backdrop-filter: blur(10px);
+
+	.PokeGrid-pokemon {
+		aspect-ratio: 1;
+		grid-row: span 2;
+		grid-column: span 2;
+		background-color: rgba(lightblue, 0.4);
+		border: 3px solid lightblue;
+		border-radius: 10px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		.PokeGrid-pokemon-top {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			padding-inline: 5px;
+			box-sizing: border-box;
+			height: 20px;
+			margin-top: 2px;
+
+			.PokeGrid-pokemon-types {
+				display: flex;
+				height: 100%;
+
+				img {
+					height: 90%;
+					margin-right: 2px;
+				}
+			}
+		}
+
+		.PokeGrid-pokemon-image {
+			flex-grow: 1;
+		}
+
+		.PokeGrid-pokemon-bottom {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			padding-inline: 5px;
+			box-sizing: border-box;
+		}
+	}
+
+	.PokeGrid-pokemon:hover {
+		scale: 105%;
+		border: 3px solid white;
+	}
 }

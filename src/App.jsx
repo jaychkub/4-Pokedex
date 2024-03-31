@@ -1,13 +1,13 @@
 import "./App.scss";
 
 import Overlay from "./componets/Overlay/Overlay";
-import Pokegrid from "./componets/Pokegrid/Pokegrid";
+import PokeGrid from "./componets/PokeGrid/PokeGrid";
 
 function App() {
 	return (
 		<div className="App">
+			<PokeGrid />
 			<Overlay />
-			<Pokegrid />
 		</div>
 	);
 }
