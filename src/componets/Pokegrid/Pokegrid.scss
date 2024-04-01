@@ -47,7 +47,7 @@
 		}
 
 		.PokeGrid-pokemon-image {
-			flex-grow: 1;
+			width: 60%;
 		}
 
 		.PokeGrid-pokemon-bottom {
@@ -63,5 +63,29 @@
 	.PokeGrid-pokemon:hover {
 		scale: 105%;
 		border: 3px solid white;
+	}
+
+	.PokeGrid-info {
+		aspect-ratio: 2/1;
+		grid-row: span 2;
+		grid-column: span 6;
+		background-color: yellow;
+		display: flex;
+
+		.PokeGrid-info-main {
+			height: 100%;
+			width: 50%;
+			background-color: rgba(lightblue, 0.4);
+			border: 3px solid lightblue;
+			border-radius: 10px;
+		}
+
+		.PokeGrid-info-other {
+			height: 100%;
+			width: 50%;
+			background-color: rgba(lightblue, 0.4);
+			border: 3px solid lightblue;
+			border-radius: 10px;
+		}
 	}
 }
