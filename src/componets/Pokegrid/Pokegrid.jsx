@@ -45,7 +45,8 @@ const pokemonTypes = {
 };
 
 const PokeItem = (props) => {
-	const id = props.id;
+	const id = props.pokeId;
+	const onClick = props.onClick;
 
 	const [data, setData] = useState();
 	const [isDataLoading, setIsDataLoading] = useState(true);
@@ -67,7 +68,7 @@ const PokeItem = (props) => {
 	}, []);
 
 	return (
-		<a className="PokeGrid-pokemon">
+		<button onClick={() => onClick(id)} className="PokeGrid-pokemon">
 			{!isDataLoading && (
 				<>
 					<div className="PokeGrid-pokemon-top">
@@ -103,31 +104,93 @@ const PokeItem = (props) => {
 					</div>
 				</>
 			)}
-		</a>
+		</button>
 	);
 };
 
-const PokeInfo = () => {
+const PokeInfo = (props) => {
+	const id = props.pokeId;
+
+	const [data, setData] = useState();
+	const [speciesData, setSpeciesData] = useState();
+	const [isDataLoading, setIsDataLoading] = useState(true);
+	const [styles, setStyles] = useState(null);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(
+					"https://pokeapi.co/api/v2/pokemon/" + id
+				);
+				const d = await response.json();
+				setData(d);
+
+				const speciesResponse = await fetch(
+					"https://pokeapi.co/api/v2/pokemon-species/" + id
+				);
+				const sd = await speciesResponse.json();
+				setSpeciesData(sd);
+
+				setIsDataLoading(false);
+			} catch (error) {
+				console.error("Error: ", error);
+			}
+		};
+		fetchData();
+
+		setStyles({
+			gridRow: Math.ceil(id / 3) * 2 - 1,
+		});
+	}, [id]);
+
 	return (
-		<div className="PokeGrid-info">
-			<div className="PokeGrid-info-main"></div>
-			<div className="PokeGrid-info-other"></div>
+		<div style={styles} className="PokeGrid-info">
+			<div className="PokeGrid-info-main">
+				{!isDataLoading && (
+					<>
+						<div className="PokeGrid-info-image">
+							<img src={null} alt="" />
+							<img
+								src={data["sprites"]["front_default"]}
+								alt=""
+							/>
+						</div>
+						<div className="PokeGrid-info-simple">
+							<div className="PokeGrid-info-simple-top">
+								<p>{data["name"]}</p>
+								<p>#{id}</p>
+							</div>
+							<p>{speciesData["genera"][7]["genus"]}</p>
+							<div className="PokeGrid-info-simple-bottom">
+								<p>{data["weight"] / 10}kg</p>
+								<p>{data["height"] / 10}m</p>
+							</div>
+						</div>
+					</>
+				)}
+			</div>
+			<div className="PokeGrid-info-other">{!isDataLoading && <></>}</div>
 		</div>
 	);
 };
 
 const PokeGrid = () => {
-	const pokeItems = [];
-	for (let i = 1; i <= 3; i++) pokeItems.push(<PokeItem key={i} id={i} />);
+	const [pokeInfoId, setPokeInfoId] = useState(1);
 
-	const pokeItems2 = [];
-	for (let i = 4; i <= 152; i++) pokeItems2.push(<PokeItem key={i} id={i} />);
+	const handlePokeItem = (id) => {
+		setPokeInfoId(id);
+	};
+
+	const pokeItems = [];
+	for (let i = 1; i <= 152; i++)
+		pokeItems.push(
+			<PokeItem key={i} pokeId={i} onClick={handlePokeItem} />
+		);
 
 	return (
 		<div className="PokeGrid-grid">
+			<PokeInfo pokeId={pokeInfoId} />
 			{pokeItems}
-			<PokeInfo />
-			{pokeItems2}
 		</div>
 	);
 };
