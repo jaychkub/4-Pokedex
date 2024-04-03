@@ -23,6 +23,7 @@ import dragon from "./types-png/dragon.png";
 import dark from "./types-png/dark.png";
 import fairy from "./types-png/fairy.png";
 
+// TODO: Chnage to switch function.
 const pokemonTypes = {
 	normal: normal,
 	fighting: fighting,
@@ -108,6 +109,18 @@ const PokeItem = (props) => {
 	);
 };
 
+const PokeInfoAbout = () => {
+	return <div className="PokeInfo-About">ABOUT</div>;
+};
+
+const PokeInfoEvo = () => {
+	return <div className="PokeInfo-Evo">Evo</div>;
+};
+
+const PokeInfoTEMP = () => {
+	return <div className="PokeInfo-TEMP">TEMP</div>;
+};
+
 const PokeInfo = (props) => {
 	const id = props.pokeId;
 
@@ -115,6 +128,7 @@ const PokeInfo = (props) => {
 	const [speciesData, setSpeciesData] = useState();
 	const [isDataLoading, setIsDataLoading] = useState(true);
 	const [styles, setStyles] = useState(null);
+	const [tab, setTab] = useState("ABOUT");
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -141,7 +155,15 @@ const PokeInfo = (props) => {
 		setStyles({
 			gridRow: Math.ceil(id / 3) * 2 - 1,
 		});
+
+		document.getElementsByClassName("PokeGrid-info")[0].scrollIntoView({
+			behavior: "smooth",
+		});
 	}, [id]);
+
+	useEffect(() => {
+		console.log(tab);
+	}, [tab]);
 
 	return (
 		<div style={styles} className="PokeGrid-info">
@@ -169,12 +191,31 @@ const PokeInfo = (props) => {
 					</>
 				)}
 			</div>
-			<div className="PokeGrid-info-other">{!isDataLoading && <></>}</div>
+			<div className="PokeGrid-info-other">
+				{!isDataLoading && (
+					<>
+						<div className="PokeGrid-info-TabBar">
+							<button onClick={() => setTab("ABOUT")}>
+								About
+							</button>
+							<button onClick={() => setTab("EVOLUTION")}>
+								Evolution
+							</button>
+							<button onClick={() => setTab("TEMP")}>TEMP</button>
+						</div>
+						<div className="PokeGrid-info-TabInfo">
+							{tab === "ABOUT" ? <PokeInfoAbout /> : null}
+							{tab === "EVOLUTION" ? <PokeInfoEvo /> : null}
+							{tab === "TEMP" ? <PokeInfoTEMP /> : null}
+						</div>
+					</>
+				)}
+			</div>
 		</div>
 	);
 };
 
-const PokeGrid = () => {
+const PokeGrid = (props) => {
 	const [pokeInfoId, setPokeInfoId] = useState(1);
 
 	const handlePokeItem = (id) => {
@@ -182,7 +223,7 @@ const PokeGrid = () => {
 	};
 
 	const pokeItems = [];
-	for (let i = 1; i <= 152; i++)
+	for (let i = 1; i <= 386; i++)
 		pokeItems.push(
 			<PokeItem key={i} pokeId={i} onClick={handlePokeItem} />
 		);
