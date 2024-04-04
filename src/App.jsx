@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./App.scss";
 
 import Overlay from "./componets/Overlay/Overlay";
@@ -8,7 +7,7 @@ function App() {
 	return (
 		<div className="App">
 			<Overlay />
-			<PokeGrid seIsHide={seIsHide} />
+			<PokeGrid />
 		</div>
 	);
 }

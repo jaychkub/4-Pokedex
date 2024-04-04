@@ -138,10 +138,16 @@
 				height: 30px;
 				display: flex;
 
-				button {
+				li {
 					width: 100%;
 					height: 100%;
-					background-color: green;
+					list-style: none;
+
+					button {
+						width: 100%;
+						height: 100%;
+						background-color: green;
+					}
 				}
 			}
 
@@ -171,4 +177,13 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 255, 0, 0.4);
+}
+
+@keyframes PokeInfo-open {
+	from {
+		transform: scaleY(0);
+	}
+	to {
+		transform: scaleY(1);
+	}
 }
