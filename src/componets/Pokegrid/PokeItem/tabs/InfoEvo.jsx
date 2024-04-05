@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 const PokeInfoEvo = (props) => {
 	const id = props.pokeId;
 
-	const [evolutionData, setEvolutionData] = useState();
+	const [speciesData, setSpeciesData] = useState();
 	const [isDataLoading, setIsDataLoading] = useState(true);
 
 	useEffect(() => {
 		setIsDataLoading(true);
 		const fetchData = async () => {
 			try {
-				const evolutionRes = await fetch(
-					`https://pokeapi.co/api/v2/evolution-chain/${id}/`
+				const speciesRes = await fetch(
+					`https://pokeapi.co/api/v2/pokemon-species/${id}/`
 				);
-				setEvolutionData(await evolutionRes.json());
+				setSpeciesData(await speciesRes.json());
 
 				setIsDataLoading(false);
 			} catch (error) {
@@ -27,7 +27,7 @@ const PokeInfoEvo = (props) => {
 		<div className="PokeInfo-Evo">
 			{!isDataLoading && (
 				<>
-					<p>{evolutionData["id"]}</p>
+					<p>{speciesData["id"]}</p>
 				</>
 			)}
 		</div>

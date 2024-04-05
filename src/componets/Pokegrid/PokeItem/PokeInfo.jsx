@@ -1,79 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import PokeInfoAbout from "./tabs/InfoAbout";
 import PokeInfoEvo from "./tabs/InfoEvo";
+import PokeInfoStat from "./tabs/InfoStat";
 
-const PokeInfoStat = (props) => {
-	const id = props.pokeId;
-
-	const canvasRef = useRef(null);
-
-	const [pokemonData, setPokemonData] = useState();
-	const [isDataLoading, setIsDataLoading] = useState(true);
-
-	useEffect(() => {
-		setIsDataLoading(true);
-		const fetchData = async () => {
-			try {
-				const pokemonRes = await fetch(
-					`https://pokeapi.co/api/v2/pokemon/${id}`
-				);
-				setPokemonData(await pokemonRes.json());
-
-				setIsDataLoading(false);
-			} catch (error) {
-				console.error("Error: ", error);
-			}
-		};
-		fetchData();
-	}, [id]);
-
-	useEffect(() => {
-		const canvas = canvasRef.current;
-		const ctx = canvas?.getContext("2d");
-
-		const centerX = canvas?.width / 2;
-		const centerY = canvas?.height / 2;
-		const radius = 20;
-
-		if (!isDataLoading) {
-			ctx?.clearRect(0, 0, canvas?.width, canvas?.height);
-
-			ctx?.beginPath();
-			ctx?.moveTo(
-				centerX +
-					(pokemonData["stats"][0]["base_stat"] / 3) * Math.cos(0),
-				centerY +
-					(pokemonData["stats"][0]["base_stat"] / 3) * Math.sin(0)
-			);
-
-			for (let i = 1; i <= 5; i++) {
-				const angle = (i * 2 * Math.PI) / 6;
-				ctx?.lineTo(
-					centerX +
-						(pokemonData["stats"][i]["base_stat"] / 3) *
-							Math.cos(angle),
-					centerY +
-						(pokemonData["stats"][i]["base_stat"] / 3) *
-							Math.sin(angle)
-				);
-			}
-
-			ctx?.closePath();
-			ctx.fillStyle = "green";
-			ctx.fill();
-			ctx?.stroke();
-		}
-	});
-
-	return (
-		<div className="PokeInfo-TEMP">
-			{!isDataLoading && (
-				<canvas ref={canvasRef} width={100} height={100}></canvas>
-			)}
-		</div>
-	);
-};
+import PokePoly from "./POKESTATS.png";
 
 const PokeInfo = (props) => {
 	const id = props.pokeId;
@@ -159,7 +90,7 @@ const PokeInfo = (props) => {
 							</li>
 							<li>
 								<button onClick={() => setTab("STAT")}>
-									TEMP
+									Stats
 								</button>
 							</li>
 						</ul>
