@@ -1,10 +1,78 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import PokeInfoAbout from "./tabs/InfoAbout";
 import PokeInfoEvo from "./tabs/InfoEvo";
 
-const PokeInfoTEMP = () => {
-	return <div className="PokeInfo-TEMP">TEMP</div>;
+const PokeInfoStat = (props) => {
+	const id = props.pokeId;
+
+	const canvasRef = useRef(null);
+
+	const [pokemonData, setPokemonData] = useState();
+	const [isDataLoading, setIsDataLoading] = useState(true);
+
+	useEffect(() => {
+		setIsDataLoading(true);
+		const fetchData = async () => {
+			try {
+				const pokemonRes = await fetch(
+					`https://pokeapi.co/api/v2/pokemon/${id}`
+				);
+				setPokemonData(await pokemonRes.json());
+
+				setIsDataLoading(false);
+			} catch (error) {
+				console.error("Error: ", error);
+			}
+		};
+		fetchData();
+	}, [id]);
+
+	useEffect(() => {
+		const canvas = canvasRef.current;
+		const ctx = canvas?.getContext("2d");
+
+		const centerX = canvas?.width / 2;
+		const centerY = canvas?.height / 2;
+		const radius = 20;
+
+		if (!isDataLoading) {
+			ctx?.clearRect(0, 0, canvas?.width, canvas?.height);
+
+			ctx?.beginPath();
+			ctx?.moveTo(
+				centerX +
+					(pokemonData["stats"][0]["base_stat"] / 3) * Math.cos(0),
+				centerY +
+					(pokemonData["stats"][0]["base_stat"] / 3) * Math.sin(0)
+			);
+
+			for (let i = 1; i <= 5; i++) {
+				const angle = (i * 2 * Math.PI) / 6;
+				ctx?.lineTo(
+					centerX +
+						(pokemonData["stats"][i]["base_stat"] / 3) *
+							Math.cos(angle),
+					centerY +
+						(pokemonData["stats"][i]["base_stat"] / 3) *
+							Math.sin(angle)
+				);
+			}
+
+			ctx?.closePath();
+			ctx.fillStyle = "green";
+			ctx.fill();
+			ctx?.stroke();
+		}
+	});
+
+	return (
+		<div className="PokeInfo-TEMP">
+			{!isDataLoading && (
+				<canvas ref={canvasRef} width={100} height={100}></canvas>
+			)}
+		</div>
+	);
 };
 
 const PokeInfo = (props) => {
@@ -17,17 +85,18 @@ const PokeInfo = (props) => {
 	const [tab, setTab] = useState("ABOUT");
 
 	useEffect(() => {
+		setIsDataLoading(true);
 		const fetchData = async () => {
 			try {
-				const pokemonData = await fetch(
-					"https://pokeapi.co/api/v2/pokemon/" + id
-				).json();
-				setPokemonData(pokemonData);
+				const pokemonRes = await fetch(
+					`https://pokeapi.co/api/v2/pokemon/${id}`
+				);
+				setPokemonData(await pokemonRes.json());
 
-				const speciesData = await fetch(
-					"https://pokeapi.co/api/v2/pokemon-species/" + id
-				).json();
-				setSpeciesData(speciesData);
+				const speciesRes = await fetch(
+					`https://pokeapi.co/api/v2/pokemon-species/${id}`
+				);
+				setSpeciesData(await speciesRes.json());
 
 				setIsDataLoading(false);
 			} catch (error) {
@@ -53,8 +122,8 @@ const PokeInfo = (props) => {
 			<div className="PokeGrid-info-main">
 				{!isDataLoading && (
 					<>
+						<audio src={pokemonData["cries"]["latest"]} autoPlay />
 						<div className="PokeGrid-info-image">
-							<img src={null} alt="" />
 							<img
 								src={pokemonData["sprites"]["front_default"]}
 								alt=""
@@ -89,7 +158,7 @@ const PokeInfo = (props) => {
 								</button>
 							</li>
 							<li>
-								<button onClick={() => setTab("TEMP")}>
+								<button onClick={() => setTab("STAT")}>
 									TEMP
 								</button>
 							</li>
@@ -105,7 +174,11 @@ const PokeInfo = (props) => {
 							) : (
 								<></>
 							)}
-							{tab === "TEMP" ? <PokeInfoTEMP /> : <></>}
+							{tab === "STAT" ? (
+								<PokeInfoStat pokeId={id} />
+							) : (
+								<></>
+							)}
 						</div>
 					</>
 				)}

@@ -7,12 +7,13 @@ const PokeInfoEvo = (props) => {
 	const [isDataLoading, setIsDataLoading] = useState(true);
 
 	useEffect(() => {
+		setIsDataLoading(true);
 		const fetchData = async () => {
 			try {
-				const evolutionData = await fetch(
+				const evolutionRes = await fetch(
 					`https://pokeapi.co/api/v2/evolution-chain/${id}/`
-				).json();
-				setEvolutionData(evolutionData);
+				);
+				setEvolutionData(await evolutionRes.json());
 
 				setIsDataLoading(false);
 			} catch (error) {
@@ -26,7 +27,7 @@ const PokeInfoEvo = (props) => {
 		<div className="PokeInfo-Evo">
 			{!isDataLoading && (
 				<>
-					<div>{evolutionData["id"]}</div>
+					<p>{evolutionData["id"]}</p>
 				</>
 			)}
 		</div>

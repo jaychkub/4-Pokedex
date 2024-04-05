@@ -8,6 +8,7 @@ function App() {
 		<div className="App">
 			<Overlay />
 			<PokeGrid />
+			<Overlay isBottom />
 		</div>
 	);
 }

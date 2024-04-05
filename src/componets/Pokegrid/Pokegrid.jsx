@@ -8,8 +8,6 @@ import PokeInfo from "./PokeItem/PokeInfo";
 import BULB from "../../assets/bulbasaur.png";
 
 const PokeGrid = (props) => {
-	const pokeInfoRef = useRef(null);
-
 	const [pokeInfoId, setPokeInfoId] = useState(1);
 
 	const handlePokeItem = (id) => {
@@ -24,7 +22,7 @@ const PokeGrid = (props) => {
 
 	return (
 		<div className="PokeGrid-grid">
-			<PokeInfo ref={pokeInfoRef} pokeId={pokeInfoId} />
+			<PokeInfo pokeId={pokeInfoId} />
 			{pokeItems}
 		</div>
 	);

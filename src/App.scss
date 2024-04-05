@@ -9,4 +9,7 @@
 	background-image: url("assets/bg.jpg");
 	background-clip: cover;
 	background-position: center;
+
+	overflow: clip;
+	position: relative;
 }

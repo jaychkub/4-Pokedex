@@ -3,17 +3,18 @@ import { useState, useEffect } from "react";
 const PokeInfoAbout = (props) => {
 	const id = props.pokeId;
 
-	const [data, setData] = useState();
+	const [charData, setCharData] = useState();
 	const [isDataLoading, setIsDataLoading] = useState(true);
 
 	useEffect(() => {
+		setIsDataLoading(true);
 		const fetchData = async () => {
 			try {
-				const response = await fetch(
-					`https://pokeapi.co/api/v2/evolution-chain/${id}/`
+				const charRes = await fetch(
+					`https://pokeapi.co/api/v2/characteristic/${id}/`
 				);
-				const d = await response.json();
-				setData(d);
+				setCharData(await charRes.json());
+
 				setIsDataLoading(false);
 			} catch (error) {
 				console.error("Error: ", error);
@@ -26,7 +27,12 @@ const PokeInfoAbout = (props) => {
 		<div className="PokeInfo-About">
 			{!isDataLoading && (
 				<>
-					<div>Found on Route 1 in Pokemon Red</div>
+					<p>
+						{charData
+							? charData["descriptions"][7]["description"]
+							: "Error loading data."}
+						.
+					</p>
 				</>
 			)}
 		</div>

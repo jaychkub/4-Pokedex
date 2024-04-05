@@ -2,20 +2,17 @@ import React from "react";
 
 import "./Overlay.scss";
 
-const Overlay = () => {
+import overlay from "./overlay.png";
+
+const Overlay = (props) => {
+	const isBottom = props.isBottom;
+
 	return (
-		<div className="Overlay-main">
-			<div className="Overlay-red top">
-				<div className="Overlay-gray-circle bottom center-h">
-					<div className="Overlay-black-circle bottom center-h"></div>
-				</div>
-			</div>
-			<div className="Overlay-red bottom flip">
-				<div className="Overlay-gray-circle bottom center-h">
-					<div className="Overlay-black-circle bottom center-h"></div>
-				</div>
-			</div>
-		</div>
+		<img
+			className={isBottom ? "Overlay-bottom" : "Overlay"}
+			src={overlay}
+			alt=""
+		/>
 	);
 };
 

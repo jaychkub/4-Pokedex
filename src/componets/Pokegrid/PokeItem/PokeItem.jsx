@@ -49,6 +49,7 @@ const PokeItem = (props) => {
 	const [isDataLoading, setIsDataLoading] = useState(true);
 
 	useEffect(() => {
+		setIsDataLoading(true);
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
