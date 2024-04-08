@@ -8,22 +8,30 @@ import PokeInfo from "./PokeItem/PokeInfo";
 import BULB from "../../assets/bulbasaur.png";
 
 const PokeGrid = (props) => {
+	const sortedList = props.sortedList;
+
 	const [pokeInfoId, setPokeInfoId] = useState(1);
+	const [pokeInfoIndex, setPokeInfoIndex] = useState(1);
 
-	const handlePokeItem = (id) => {
+	const handlePokeItem = (id, index) => {
 		setPokeInfoId(id);
+		setPokeInfoIndex(index);
 	};
-
-	const pokeItems = [];
-	for (let i = 1; i <= 386; i++)
-		pokeItems.push(
-			<PokeItem key={i} pokeId={i} onClick={handlePokeItem} />
-		);
 
 	return (
 		<div className="PokeGrid-grid">
-			<PokeInfo pokeId={pokeInfoId} />
-			{pokeItems}
+			<PokeInfo pokeId={pokeInfoId} pokeIndex={pokeInfoIndex} />
+			{/* {pokeItems} */}
+			{sortedList.map((item, index) => (
+				<PokeItem
+					key={index}
+					pokeId={item["id"]}
+					index={index}
+					onClick={handlePokeItem}
+					editList={props.editList}
+					setIsPopulated={props.setIsPopulated}
+				/>
+			))}
 		</div>
 	);
 };

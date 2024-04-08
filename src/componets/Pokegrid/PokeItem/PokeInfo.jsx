@@ -8,6 +8,7 @@ import PokePoly from "./POKESTATS.png";
 
 const PokeInfo = (props) => {
 	const id = props.pokeId;
+	const index = props.pokeIndex;
 
 	const [pokemonData, setPokemonData] = useState();
 	const [speciesData, setSpeciesData] = useState();
@@ -37,7 +38,7 @@ const PokeInfo = (props) => {
 		fetchData();
 
 		setStyles({
-			gridRow: Math.ceil(id / 3) * 2 - 1,
+			gridRow: Math.ceil((index + 1) / 3) * 2 - 1,
 		});
 	}, [id]);
 
@@ -101,7 +102,10 @@ const PokeInfo = (props) => {
 								<></>
 							)}
 							{tab === "EVOLUTION" ? (
-								<PokeInfoEvo pokeId={id} />
+								<PokeInfoEvo
+									pokeId={id}
+									handPokeItem={props.handPokeItem}
+								/>
 							) : (
 								<></>
 							)}

@@ -1,0 +1,23 @@
+.SortModal {
+	width: 100%;
+	max-width: 425px;
+	height: 100%;
+	z-index: 2;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.Modal-Container {
+		width: 70%;
+		height: 55%;
+		background-color: white;
+
+		.Modal-top {
+		}
+	}
+}
+
+.hide {
+	display: none;
+}

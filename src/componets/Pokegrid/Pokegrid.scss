@@ -8,54 +8,69 @@
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 	gap: 10px;
-	z-index: 2;
+	z-index: 0;
 	overflow-y: scroll;
 	box-sizing: border-box;
 	padding: 10px;
-	padding-top: 10rem;
-	backdrop-filter: blur(30px);
-	-webkit-backdrop-filter: blur(10px);
-	// background-color: rgba(lightblue, 0.4);
-	box-shadow: inset rgb(92, 132, 145) 0px 0px 100px 0px;
+	padding-top: 13.7rem;
+	padding-bottom: 11.5rem;
+	backdrop-filter: blur(100px);
+	-webkit-backdrop-filter: blur(100px);
+	background-color: rgba(lightblue, 0.7);
+	box-shadow: inset rgba(55, 75, 129, 0.508) 0px 0px 25px 0px;
 
 	.PokeGrid-pokemon {
 		aspect-ratio: 1;
 		grid-row: span 2;
 		grid-column: span 2;
-		background-color: rgba(lightblue, 0.7);
-		border: 3px solid rgb(203, 228, 236);
-		border-radius: 10px;
+		// background-color: rgba(lightblue, 0.7);
+		// border: 3px solid rgba(203, 228, 236, 0.324);
+		// border-radius: 10px;
+		border: none;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		background-position: center;
 		background-size: contain;
-		box-shadow: inset rgb(69, 102, 113) 0px 0px 40px 0px;
+		// box-shadow: inset rgb(69, 102, 113) 0px 0px 15px 0px;
+		position: relative;
+		background: transparent;
+		background-image: url("./PokeItem/pokeitem.png");
+		background-size: contain;
+		background-repeat: no-repeat;
+		box-shadow: black 9px;
 
 		.PokeGrid-pokemon-top {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			width: 100%;
-			padding-inline: 5px;
+			padding-inline: 11px;
 			box-sizing: border-box;
 			height: 20px;
-			margin-top: 2px;
+			margin-top: 10px;
 
 			.PokeGrid-pokemon-types {
 				display: flex;
 				height: 100%;
+				padding-top: 2px;
 
 				img {
 					height: 90%;
 					margin-right: 2px;
 				}
 			}
+
+			p {
+				padding-right: 5px;
+			}
 		}
 
 		.PokeGrid-pokemon-image {
 			width: 60%;
+
+			height: auto;
 		}
 
 		.PokeGrid-pokemon-bottom {
@@ -63,13 +78,16 @@
 			justify-content: space-between;
 			align-items: center;
 			width: 100%;
-			padding-inline: 5px;
 			box-sizing: border-box;
+			padding-inline: 16px;
+			height: 16px;
+			padding-bottom: 16px;
 		}
 	}
 
 	.PokeGrid-pokemon:hover {
 		scale: 105%;
+		border-radius: 15px;
 		border: 3px solid white;
 	}
 
@@ -78,14 +96,15 @@
 		grid-row: span 2;
 		grid-column: span 6;
 		display: flex;
+		background-color: rgba(lightblue, 0.4);
+		border: 3px solid rgb(203, 228, 236);
+		border-radius: 10px;
+		box-shadow: inset rgb(69, 102, 113) 0px 0px 80px 0px;
 
 		.PokeGrid-info-main {
 			height: 100%;
 			width: 40%;
-			background-color: rgba(lightblue, 0.4);
-			border: 3px solid lightblue;
-			border-radius: 10px 40px 0 10px;
-			border-right: none;
+
 			display: flex;
 			flex-direction: column;
 
@@ -137,10 +156,6 @@
 		.PokeGrid-info-other {
 			height: 100%;
 			width: 60%;
-			background-color: rgba(lightblue, 0.4);
-			border: 3px solid lightblue;
-			border-radius: 40px 10px 10px 0;
-			border-left: none;
 			display: flex;
 			flex-direction: column;
 
@@ -193,7 +208,35 @@
 .PokeInfo-Evo {
 	width: 100%;
 	height: 100%;
-	background-color: rgba(255, 0, 0, 0.4);
+	// background-color: rgba(255, 0, 0, 0.4);
+
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+	.arrow {
+		width: 30px;
+	}
+
+	.PokeEvoSlot {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background-color: rgba(white, 0.6);
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		img {
+			width: 90%;
+			height: 90%;
+		}
+	}
+
+	.current {
+		background-color: rgba(yellow, 0.6);
+	}
 }
 
 .PokeInfo-TEMP {
@@ -204,9 +247,19 @@
 	justify-content: center;
 	align-items: center;
 
+	position: relative;
+
 	img {
 		position: absolute;
+		// top: 2px;
+		// left: 26px;
 		width: 135px;
+		padding-right: 2px;
+	}
+
+	.labels {
+		width: 170px;
+		padding-bottom: 7px;
 	}
 
 	canvas {

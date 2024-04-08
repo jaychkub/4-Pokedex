@@ -3,25 +3,7 @@ import { useState, useEffect, useRef } from "react";
 const polyOffs = [50, 100, 150, 200];
 
 import poly from "../POKESTATS.png";
-
-const statName = (stat) => {
-	switch (stat) {
-		case "hp":
-			return "HP";
-		case "attack":
-			return "ATK";
-		case "defense":
-			return "DEF";
-		case "special-defense":
-			return "Sp. DEF";
-		case "special-attack":
-			return "Sp. ATK";
-		case "speed":
-			return "SPD";
-		default:
-			return "Err";
-	}
-};
+import labels from "../pokelabels.png";
 
 const PokeInfoStat = (props) => {
 	const id = props.pokeId;
@@ -84,13 +66,6 @@ const PokeInfoStat = (props) => {
 						((pokemonData["stats"][i]["base_stat"] + 40) / 3) *
 							Math.sin(angle)
 				);
-
-				ctx.fillStyle = "gray";
-				ctx?.fillText(
-					statName(pokemonData["stats"][i]["stat"]["name"]),
-					centerX + (260 / 3) * Math.cos(angle),
-					centerY + (260 / 3) * Math.sin(angle)
-				);
 			}
 
 			ctx?.closePath();
@@ -104,8 +79,10 @@ const PokeInfoStat = (props) => {
 		<div className="PokeInfo-TEMP">
 			{!isDataLoading && (
 				<>
+					<img className="labels" src={labels} alt="" />
 					<img src={poly} alt="" />
-					<canvas ref={canvasRef} width={220} height={160}></canvas>
+
+					<canvas ref={canvasRef} width={170} height={147.2}></canvas>
 				</>
 			)}
 		</div>

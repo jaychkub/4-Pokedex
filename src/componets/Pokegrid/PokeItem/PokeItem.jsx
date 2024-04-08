@@ -19,6 +19,8 @@ import dragon from "./types-png/dragon.png";
 import dark from "./types-png/dark.png";
 import fairy from "./types-png/fairy.png";
 
+import bg from "./pokeitem.png";
+
 // TODO: Chnage to switch function.
 const pokemonTypes = {
 	normal: normal,
@@ -53,7 +55,7 @@ const PokeItem = (props) => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					"https://pokeapi.co/api/v2/pokemon/" + id
+					`https://pokeapi.co/api/v2/pokemon/${id}`
 				);
 				const d = await response.json();
 				setData(d);
@@ -63,10 +65,19 @@ const PokeItem = (props) => {
 			}
 		};
 		fetchData();
-	}, []);
+	}, [id]);
+
+	useEffect(() => {
+		if (!isDataLoading) {
+			props.editList(props.index, { id: id, name: data["name"] });
+			props.setIsPopulated(true);
+		}
+	}, [data, id]);
 
 	return (
-		<button onClick={() => onClick(id)} className="PokeGrid-pokemon">
+		<button
+			onClick={() => onClick(id, props.index)}
+			className="PokeGrid-pokemon">
 			{!isDataLoading && (
 				<>
 					<div className="PokeGrid-pokemon-top">
