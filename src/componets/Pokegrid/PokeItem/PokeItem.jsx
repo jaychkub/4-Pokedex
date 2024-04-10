@@ -19,8 +19,6 @@ import dragon from "./types-png/dragon.png";
 import dark from "./types-png/dark.png";
 import fairy from "./types-png/fairy.png";
 
-import bg from "./pokeitem.png";
-
 // TODO: Chnage to switch function.
 const pokemonTypes = {
 	normal: normal,
@@ -45,20 +43,21 @@ const pokemonTypes = {
 
 const PokeItem = (props) => {
 	const id = props.pokeId;
+	const index = props.index;
 	const onClick = props.onClick;
 
-	const [data, setData] = useState();
+	const [pokemonData, setPokemonData] = useState();
 	const [isDataLoading, setIsDataLoading] = useState(true);
 
 	useEffect(() => {
 		setIsDataLoading(true);
 		const fetchData = async () => {
 			try {
-				const response = await fetch(
+				const pokemonRes = await fetch(
 					`https://pokeapi.co/api/v2/pokemon/${id}`
 				);
-				const d = await response.json();
-				setData(d);
+				setPokemonData(await pokemonRes.json());
+
 				setIsDataLoading(false);
 			} catch (error) {
 				console.error("Error: ", error);
@@ -67,17 +66,8 @@ const PokeItem = (props) => {
 		fetchData();
 	}, [id]);
 
-	useEffect(() => {
-		if (!isDataLoading) {
-			props.editList(props.index, { id: id, name: data["name"] });
-			props.setIsPopulated(true);
-		}
-	}, [data, id]);
-
 	return (
-		<button
-			onClick={() => onClick(id, props.index)}
-			className="PokeGrid-pokemon">
+		<button onClick={() => onClick(id, index)} className="PokeGrid-pokemon">
 			{!isDataLoading && (
 				<>
 					<div className="PokeGrid-pokemon-top">
@@ -85,16 +75,18 @@ const PokeItem = (props) => {
 							<img
 								src={
 									pokemonTypes[
-										data["types"][0]["type"]["name"]
+										pokemonData["types"][0]["type"]["name"]
 									]
 								}
 								alt=""
 							/>
 							<img
 								src={
-									data["types"].length > 1
+									pokemonData["types"].length > 1
 										? pokemonTypes[
-												data["types"][1]["type"]["name"]
+												pokemonData["types"][1]["type"][
+													"name"
+												]
 										  ]
 										: null
 								}
@@ -105,11 +97,11 @@ const PokeItem = (props) => {
 					</div>
 					<img
 						className="PokeGrid-pokemon-image"
-						src={data["sprites"]["front_default"]}
+						src={pokemonData["sprites"]["front_default"]}
 						alt={id}
 					/>
 					<div className="PokeGrid-pokemon-bottom">
-						<p>{data["name"]}</p>
+						<p>{pokemonData["name"]}</p>
 					</div>
 				</>
 			)}

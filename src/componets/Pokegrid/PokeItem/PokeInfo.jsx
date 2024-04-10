@@ -4,8 +4,6 @@ import PokeInfoAbout from "./tabs/InfoAbout";
 import PokeInfoEvo from "./tabs/InfoEvo";
 import PokeInfoStat from "./tabs/InfoStat";
 
-import PokePoly from "./POKESTATS.png";
-
 const PokeInfo = (props) => {
 	const id = props.pokeId;
 	const index = props.pokeIndex;
@@ -48,6 +46,12 @@ const PokeInfo = (props) => {
 			block: "center",
 		});
 	}, [styles]);
+
+	useEffect(() => {
+		setStyles({
+			display: "none",
+		});
+	}, [props.searchTerm]);
 
 	return (
 		<div style={styles} className="PokeGrid-info">
