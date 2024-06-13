@@ -10,10 +10,12 @@ const PokeInfoAbout = (props) => {
 		setIsDataLoading(true);
 		const fetchData = async () => {
 			try {
-				// const charRes = await fetch(
-				// 	`https://pokeapi.co/api/v2/characteristic/${id}`
-				// );
-				// setCharData(await charRes.json());
+				const charRes = await fetch(
+					`https://pokeapi.co/api/v2/pokemon-species/${id}`
+				);
+				setCharData(await charRes.json());
+
+				setIsDataLoading(false);
 
 				console.log("TODO: Get char data");
 			} catch (error) {
@@ -29,7 +31,7 @@ const PokeInfoAbout = (props) => {
 				<>
 					<p>
 						{charData
-							? charData["descriptions"][7]["description"]
+							? charData["flavor_text_entries"][0]["flavor_text"]
 							: "Error loading data."}
 						.
 					</p>

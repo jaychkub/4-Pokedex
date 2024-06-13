@@ -119,16 +119,21 @@ function App() {
 	}, [searchTerm]);
 
 	return (
-		<div className="App">
-			<SortModal
-				isDisplayed={isModalDisplayed}
-				toggleModal={toggleModal}
-			/>
-			<SearchBar toggleModal={toggleModal} onSearch={handleSearch} />
-			<Overlay />
-			<PokeGrid sortedList={sortedList} searchTerm={searchTerm} />
-			<Overlay isBottom />
-		</div>
+		<>
+			<div className="App">
+				<SortModal
+					isDisplayed={isModalDisplayed}
+					toggleModal={toggleModal}
+				/>
+				<SearchBar toggleModal={toggleModal} onSearch={handleSearch} />
+				<Overlay />
+				<PokeGrid sortedList={sortedList} searchTerm={searchTerm} />
+				<Overlay isBottom />
+			</div>
+			<div className="rotate">
+				Please rotate your device for the full experience.
+			</div>
+		</>
 	);
 }
 

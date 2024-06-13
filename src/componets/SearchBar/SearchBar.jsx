@@ -23,7 +23,7 @@ const SearchBar = (props) => {
 				value={searchTerm}
 				onChange={handleInputChange}
 			/>
-			<button onClick={toggleModal}>Filter</button>
+			{/* <button onClick={toggleModal}>Filter</button> */}
 		</div>
 	);
 };

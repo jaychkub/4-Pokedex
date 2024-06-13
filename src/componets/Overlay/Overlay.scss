@@ -1,6 +1,6 @@
 .Overlay {
 	position: absolute;
-	top: -21%;
+	top: -22svh;
 	// top: 0;
 	width: 100%;
 	max-width: 425px;
@@ -13,7 +13,7 @@
 .Overlay-bottom {
 	position: absolute;
 	// bottom: 0;
-	bottom: -21%;
+	bottom: -22svh;
 	width: 100%;
 	max-width: 425px;
 	z-index: 3;
@@ -29,7 +29,7 @@
 		top: 0;
 	}
 	to {
-		top: -21%;
+		top: -22svh;
 	}
 }
 
@@ -38,6 +38,16 @@
 		bottom: 0;
 	}
 	to {
-		bottom: -21%;
+		bottom: -22svh;
+	}
+}
+
+@media (max-height: 844px) {
+	.Overlay {
+		top: -32svh;
+	}
+
+	.Overlay-bottom {
+		bottom: -32svh;
 	}
 }

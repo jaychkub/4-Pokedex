@@ -215,8 +215,10 @@
 	padding: 0.75rem;
 
 	p {
-		width: max-content;
-		border-bottom: 1px solid black;
+		// max-width: 100%;
+		// width: max-content;
+		// border-bottom: 1px solid black;
+		text-decoration: underline;
 	}
 }
 

@@ -13,3 +13,20 @@
 	overflow: hidden;
 	position: relative;
 }
+
+.rotate {
+	display: none;
+}
+
+@media only screen and (max-width: 1250px) and (orientation: landscape) {
+	.App {
+		display: none;
+	}
+
+	.rotate {
+		width: 100svw;
+		height: 100svh;
+		display: grid;
+		place-content: center;
+	}
+}
